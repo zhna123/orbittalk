@@ -4,7 +4,7 @@ import { mdiBellOutline } from '@mdi/js';
 import { mdiCircleMedium } from '@mdi/js';
 import AVATAR_DEFAULT from '../assets/avatar-default.png'
 import ONLINE_CIRCLE from '../assets/online-circle.png'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 import { AppContext } from '../App';
 
@@ -33,10 +33,15 @@ const showAccount = () => {
 export function Header() {
 
   const { signIn } = useContext(AppContext)
+  const navigate = useNavigate();
+
+  const goHome = () => {
+    navigate("/");
+  }
 
   return (
     <header className="h-24 flex justify-between items-start">
-      <img src={ LOGO } alt="logo" className='h-12' />
+      <img src={ LOGO } alt="logo" className='h-12 cursor-pointer' onClick={ goHome }/>
       { signIn && showAccount() }
     </header>
   )

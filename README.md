@@ -8,3 +8,4 @@ Developed with
 
 * React + Vite
 * Tailwind CSS
+* React Hook Form

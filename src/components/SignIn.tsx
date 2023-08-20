@@ -1,27 +1,112 @@
+import { useForm, SubmitHandler } from "react-hook-form"
+import { ErrorMessage } from "@hookform/error-message"
+import { AppContext } from "../App";
+import { useContext, useState } from "react";
+import { redirect } from "react-router-dom";
+
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
+type Inputs = {
+  username: string,
+  password: string
+}
+
+interface ErrorDivProps {
+  name: keyof Inputs;
+}
 
 interface Props {
   showSignup: (show: boolean) => void
 }
 
-export function SignIn(props: Props) {
+export function SignIn({ showSignup }: Props) {
+
+  const { handleSignIn } = useContext(AppContext)
+
+  const [hasError, setHasError] = useState<boolean>(false)
+
+  const {
+    register,
+    reset,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<Inputs>({
+    criteriaMode: "all",
+    defaultValues: {
+      username: '',
+      password: ''
+    }
+  })
+
+  const ErrorDiv = ({name}: ErrorDivProps) => {
+    return (
+      <ErrorMessage
+        errors={errors}
+        name={name}
+        render={({ message }) => <p role="alert" className="text-red-600 text-sm font-medium">{message}</p>}
+      />
+    )
+  }
+
+  const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
+    try {
+      const res = await fetch(`${SERVER_URL}/auth/login`, {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      if (res.status === 201) {
+        console.log("log in succeed.")
+        handleSignIn()
+      } else {
+        console.log("log in failed.")
+        setHasError(true)
+        reset()
+      }
+    } catch (e) {
+      console.log("error when log in:" + e)
+    }
+  }
 
   return (
     <div className='max-w-xs self-center w-full'>
       <p className='text-2xl font-semibold text-grey-800'>Hello, Welcome!</p>
       <p className='text-grey-500 mt-2'>Enter username and password to sign in.</p>
-      <form className='py-8 flex flex-col gap-4'>
+      <form onSubmit={handleSubmit(onSubmit)} className='py-8 flex flex-col gap-4'>
+        { hasError && <p className="text-sm text-red-600 font-medium">Username or password is incorrect</p>}
         <label htmlFor="username" className='text-grey-800'> 
-          Username
+          Username <span className="text-red-600 ">*</span>
         </label>
-        <input type="text" name="username" id="username" className='form-input rounded-md border-grey-300' />
+        <input type="text" id="username" autoComplete="on"
+          aria-invalid={errors.username ? "true" : "false"}
+          {...register("username", {
+            required: "This is required"
+          })}
+          className={`form-input rounded-md border-grey-300 ${errors.username ? 'focus:ring-0 focus:border-red-500'
+            :'focus:ring-0 focus:border-grey-600 focus:shadow-inner' }`} />
+        <ErrorDiv name="username" />
+
         <label htmlFor="password" className='text-grey-800'> 
-          Password
+          Password <span className="text-red-600 ">*</span>
         </label>
-        <input type="password" name="password" id="password" className='form-input rounded-md border-grey-300' />
-        <input type="submit" value="Sign In" className='form-input mt-4 border-none rounded-md text-red-100 bg-red-500'/>
+        <input type="password" id="password" autoComplete="on"
+          aria-invalid={errors.password ? "true" : "false"}
+          {...register("password", {
+            required: "This is required"
+          })}
+          className={`form-input rounded-md border-grey-300 ${errors.password ? 'focus:ring-0 focus:border-red-500'
+            :'focus:ring-0 focus:border-grey-600 focus:shadow-inner' }`} />
+        <ErrorDiv name="password" />
+
+        <input type="submit" value="Sign In" 
+          className='form-input mt-4 border-none rounded-md text-red-100 bg-red-500 cursor-pointer focus:ring-0 active:bg-red-600'/>
       </form>
       <p className='text-center mt-8 text-grey-500 text-sm'>Don't have an account?&nbsp;&nbsp;
-        <span className='text-grey-800 font-semibold text-sm cursor-pointer' onClick={ () => props.showSignup(true) }>Sign Up</span>
+        <span className='text-grey-800 font-semibold text-sm cursor-pointer' onClick={ () => showSignup(true) }>Sign Up</span>
       </p>
     </div>
   )
