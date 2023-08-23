@@ -2,9 +2,9 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { ErrorMessage } from "@hookform/error-message"
 import { AppContext } from "../App";
 import { useContext, useState } from "react";
-import { redirect } from "react-router-dom";
+import { SERVER_URL } from "../util/constant";
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
 
 type Inputs = {
   username: string,
@@ -73,8 +73,8 @@ export function SignIn({ showSignup }: Props) {
   }
 
   return (
-    <div className='max-w-xs self-center w-full'>
-      <p className='text-2xl font-semibold text-grey-800'>Hello, Welcome!</p>
+    <div className='max-w-screen-sm sm:max-w-xs self-center w-full'>
+      <p className='text-xl sm:text-2xl font-semibold text-grey-800'>Hello, Welcome!</p>
       <p className='text-grey-500 mt-2'>Enter username and password to sign in.</p>
       <form onSubmit={handleSubmit(onSubmit)} className='py-8 flex flex-col gap-4'>
         { hasError && <p className="text-sm text-red-600 font-medium">Username or password is incorrect</p>}

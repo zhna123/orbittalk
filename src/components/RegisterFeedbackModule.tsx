@@ -1,11 +1,19 @@
+import { redirect } from "react-router-dom"
 
 interface Props {
   success: boolean
   registerErr: {msg: string}[]
   closeModule: () => void
+  showSignup: (show: boolean) => void
 }
 
-export function RegisterFeedbackModule({ success, registerErr, closeModule }: Props) {
+export function RegisterFeedbackModule({ success, registerErr, closeModule, showSignup }: Props) {
+
+  const signin = () => {
+    closeModule()
+    showSignup(false)
+    redirect('/')
+  }
   
   return (
     <>
@@ -22,7 +30,7 @@ export function RegisterFeedbackModule({ success, registerErr, closeModule }: Pr
           }
 
           {
-            success ? <p>Click <span className="font-semibold text-red-500 cursor-pointer underline">this link</span> to sign in.</p>
+            success ? <p>Click <span className="font-semibold text-red-500 cursor-pointer underline" onClick={signin}>here</span> to sign in.</p>
               : <button className="bg-red-500 text-red-100 py-1 px-4 rounded-md border-none" onClick={ closeModule }>Close</button>
           }
           

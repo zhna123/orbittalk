@@ -2,8 +2,8 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { ErrorMessage } from "@hookform/error-message"
 import { useState } from "react";
 import { RegisterFeedbackModule } from "./RegisterFeedbackModule";
+import { SERVER_URL } from "../util/constant";
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 type Inputs = {
   username: string,
@@ -57,7 +57,6 @@ export function Register({ showSignup }: Props) {
   }
 
   const onSubmit: SubmitHandler<Inputs> = async(data: Inputs) => {
-    console.log(data)
     try {
       const res = await fetch(`${SERVER_URL}/sign-up`, {
         method: "POST",
@@ -87,8 +86,8 @@ export function Register({ showSignup }: Props) {
   }
 
   return (
-    <div className='max-w-xs self-center w-full'>
-      <p className='text-2xl text-center font-semibold text-grey-800'>Create your account</p>
+    <div className='max-w-screen-sm sm:max-w-xs self-center w-full'>
+      <p className='text-xl sm:text-2xl text-center font-semibold text-grey-800'>Create your account</p>
       <form onSubmit={ handleSubmit(onSubmit) } className='py-8 flex flex-col gap-2' noValidate>
         <label htmlFor="username" className='text-grey-800'> 
           Username <span className="text-red-600 ">*</span>
@@ -156,7 +155,7 @@ export function Register({ showSignup }: Props) {
       <p className='text-center mt-4 text-grey-500 text-sm'>Already had an account?&nbsp;&nbsp;
         <span className='text-grey-800 font-semibold text-sm cursor-pointer' onClick={ () => showSignup(false) }>Sign In</span>
       </p>
-      { formSubmitted && <RegisterFeedbackModule success={ success } registerErr = { registerErr } closeModule = { closeModule }/> }
+      { formSubmitted && <RegisterFeedbackModule success={ success } registerErr = { registerErr } closeModule = { closeModule } showSignup = { showSignup }/> }
     </div>
   )
 }

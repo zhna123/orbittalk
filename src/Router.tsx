@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { AccountBoard } from './components/AccountBoard.tsx';
+import { AccountBoard } from './components/account/AccountBoard.tsx';
 import { Layout } from './Layout.tsx';
 import { Home } from "./components/Home.tsx";
 import ProtectedRoute from "./ProtectedRoute.tsx";

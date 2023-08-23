@@ -7,6 +7,9 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      sans: ['Helvetica', 'Arial', 'sans-serif'],
+    },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
