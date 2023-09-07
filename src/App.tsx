@@ -43,6 +43,23 @@ const getAuthUser = async () => {
   return null
 }
 
+const generateNewToken = async () => {
+  const res = await fetch(`${SERVER_URL}/auth/token`, {
+    method: "POST",
+    mode: "cors",
+    credentials: "include",
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+  if (res.status === 201) {
+    console.log('new token generated')
+  } else {
+    console.log('error generating new token')
+    throw new Error('Token generation failed');
+  }
+}
+
 const setOnlineStatus = async (user: User, online: boolean) => {
   const isOnline = user.is_online
   if (isOnline === online) return
@@ -75,7 +92,7 @@ function App() {
         if (currentTimestamp < jwtExpirationTS) {
           // JWT is not expired
           console.log('JWT is valid');
-          
+
           const authUser = await getAuthUser();
           if (authUser !== null) {
             setUser(authUser)
@@ -83,6 +100,18 @@ function App() {
           } else {
             console.log("error getting authenticated user when checking authentication")
           }
+          
+        } else {
+          // request new token with refresh token
+            await generateNewToken()
+          
+            const authUser = await getAuthUser();
+            if (authUser !== null) {
+              setUser(authUser)
+              setSignIn(true)
+            } else {
+              console.log("error getting authenticated user when checking authentication")
+            } 
         } 
       }
     }

@@ -74,7 +74,7 @@ const OnlineProfile = ({avatar}: AvatarProps) => {
     <div className='relative grow-0 shrink-0'>
       {
         avatar ?
-          <img src={ getAvatarDataUri(avatar) } alt="default avatar" className='h-5 w-5 sm:h-10 sm:w-10 rounded-full object-cover' />
+          <img src={ getAvatarDataUri(avatar) } alt="avatar" className='h-5 w-5 sm:h-10 sm:w-10 rounded-full object-cover' />
           :
           <img src={ AVATAR_DEFAULT } alt="default avatar" className='h-5 w-5 sm:h-10 sm:w-10 rounded-full object-cover' />
       }
@@ -88,7 +88,7 @@ const OfflineProfile = ({avatar}: AvatarProps) => {
     <div className='relative grow-0 shrink-0'>
       {
         avatar ?
-          <img src={ AVATAR_DEFAULT } alt="default avatar" className='h-5 w-5 sm:h-10 sm:w-1 rounded-full object-cover' />
+          <img src={ getAvatarDataUri(avatar) } alt="avatar" className='h-5 w-5 sm:h-10 sm:w-10 rounded-full object-cover' />
           :
           <img src={ AVATAR_DEFAULT } alt="default avatar" className='h-5 w-5 sm:h-10 sm:w-10 rounded-full object-cover' />
       }
