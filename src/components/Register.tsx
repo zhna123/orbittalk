@@ -2,10 +2,10 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { ErrorMessage } from "@hookform/error-message"
 import { useState } from "react";
 import { RegisterFeedbackModule } from "./RegisterFeedbackModule";
-import { SERVER_URL } from "../util/constant";
+import { registerUser } from "../api/user";
 
 
-type Inputs = {
+export type Inputs = {
   username: string,
   password: string,
   confirmPwd: string,
@@ -57,27 +57,17 @@ export function Register({ showSignup }: Props) {
   }
 
   const onSubmit: SubmitHandler<Inputs> = async(data: Inputs) => {
-    try {
-      const res = await fetch(`${SERVER_URL}/sign-up`, {
-        method: "POST",
-        mode: "cors",
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      const msg = await res.json()
-      console.log(msg)
-      if (res.status === 201) {
-        setFormSubmitted(true)
-        setSuccess(true)
-      } else {
-        setFormSubmitted(true)
-        setSuccess(false)
-        setRegisterErr(msg)
-      }
-    } catch (e) {
-      console.log("error when register:" + e)
+    const registerResult = await registerUser(data);
+
+    const isSucceed = registerResult[0]
+    const result = registerResult[1]
+    if (isSucceed) {
+      setFormSubmitted(true)
+      setSuccess(true)
+    } else {
+      setFormSubmitted(true)
+      setSuccess(false)
+      setRegisterErr(result)
     }
   }
 
@@ -87,12 +77,12 @@ export function Register({ showSignup }: Props) {
 
   return (
     <div className='max-w-screen-sm sm:max-w-xs self-center w-full'>
-      <p className='text-xl sm:text-2xl text-center font-semibold text-grey-800'>Create your account</p>
+      <p data-testid='sign-up-heading' className='text-xl sm:text-2xl text-center font-semibold text-grey-800'>Create your account</p>
       <form onSubmit={ handleSubmit(onSubmit) } className='py-8 flex flex-col gap-2' noValidate>
         <label htmlFor="username" className='text-grey-800'> 
           Username <span className="text-red-600 ">*</span>
         </label>
-        <input type="text" id="username" 
+        <input type="text" id="username" role="textbox" aria-label="username"
           aria-invalid={errors.username ? "true" : "false"}
           {...register("username", {
             required: "This is required"
@@ -104,7 +94,7 @@ export function Register({ showSignup }: Props) {
         <label htmlFor="password" className='text-grey-800'> 
           Password <span className="text-red-600 ">*</span>
         </label>
-        <input type="password" id="password" autoComplete="true"
+        <input type="password" id="password" autoComplete="true" role="textbox" aria-label="password"
           aria-invalid={errors.password ? "true" : "false"}
           {...register("password", {
             required: "This is required",
@@ -120,7 +110,7 @@ export function Register({ showSignup }: Props) {
         <label htmlFor="confirmPwd" className='text-grey-800'> 
           Confirm password <span className="text-red-600 ">*</span>
         </label>
-        <input type="password" id="confirmPwd" autoComplete="true"
+        <input type="password" id="confirmPwd" autoComplete="true" role="textbox" aria-label="confirm password"
           aria-invalid={errors.confirmPwd ? "true" : "false"}
           {...register("confirmPwd", {
             required: "This is required",
@@ -134,10 +124,10 @@ export function Register({ showSignup }: Props) {
             :'focus:ring-0 focus:border-grey-600 focus:shadow-inner' }`} />
         <ErrorDiv name="confirmPwd" />
 
-        <label htmlFor="password" className='text-grey-800'> 
+        <label htmlFor="email" className='text-grey-800'> 
           Email <span className="text-red-600 ">*</span>
         </label>
-        <input type="email" id="email" 
+        <input type="email" id="email" role="textbox" aria-label="email"
           aria-invalid={errors.email ? "true" : "false"}
           {...register("email", {
             required: "This is required",
@@ -150,7 +140,7 @@ export function Register({ showSignup }: Props) {
             :'focus:ring-0 focus:border-grey-600 focus:shadow-inner' }`} />
         <ErrorDiv name="email" />
 
-        <input type="submit" value="Sign Up" className='form-input mt-8 border-none rounded-md text-red-100 bg-red-500 cursor-pointer focus:ring-0 active:bg-red-600'/>
+        <input type="submit" value="Sign Up" aria-label="submit" className='form-input mt-8 border-none rounded-md text-red-100 bg-red-500 cursor-pointer focus:ring-0 active:bg-red-600'/>
       </form>
       <p className='text-center mt-4 text-grey-500 text-sm'>Already had an account?&nbsp;&nbsp;
         <span className='text-grey-800 font-semibold text-sm cursor-pointer' onClick={ () => showSignup(false) }>Sign In</span>

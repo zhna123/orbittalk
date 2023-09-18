@@ -7,7 +7,7 @@ import { Buffer } from 'buffer';
 import { SERVER_URL } from './util/constant';
 
 
-interface AppContextProps {
+export interface AppContextProps {
   signIn: boolean;
   handleSignIn: () => void;
   handleSignOut: () => void;

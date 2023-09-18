@@ -1,0 +1,62 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`acount section in header > renders account section 1`] = `
+<div>
+  <div
+    class="flex items-center gap-2 sm:gap-4"
+    data-testid="account"
+  >
+    <div
+      class="relative"
+    >
+      <svg
+        aria-labelledby="icon_labelledby_1"
+        class="text-grey-500 w-[20px] sm:w-[25px]"
+        viewBox="0 0 24 24"
+      >
+        <title
+          id="icon_labelledby_1"
+        >
+          Notification Bell
+        </title>
+        <path
+          d="M10 21H14C14 22.1 13.1 23 12 23S10 22.1 10 21M21 19V20H3V19L5 17V11C5 7.9 7 5.2 10 4.3V4C10 2.9 10.9 2 12 2S14 2.9 14 4V4.3C17 5.2 19 7.9 19 11V17L21 19M17 11C17 8.2 14.8 6 12 6S7 8.2 7 11V18H17V11Z"
+          style="fill: currentColor;"
+        />
+      </svg>
+      <svg
+        class="text-red-500 absolute -top-2 -right-2"
+        role="presentation"
+        style="width: 1.5rem; height: 1.5rem;"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8Z"
+          style="fill: currentColor;"
+        />
+      </svg>
+    </div>
+    <a
+      class="shrink-0"
+      href="/account"
+    >
+      <div
+        aria-label="user avatar"
+        class="relative"
+        role="img"
+      >
+        <img
+          alt="user avatar"
+          class="h-6 w-6 rounded-full sm:h-10 sm:w-10 object-cover"
+          src="data:image/jpeg;base64,YWJj"
+        />
+        <img
+          alt="online circle"
+          class="h-6 w-6 rounded-full sm:h-10 sm:w-10 absolute top-0 left-0"
+          src="/src/assets/online-circle.png"
+        />
+      </div>
+    </a>
+  </div>
+</div>
+`;

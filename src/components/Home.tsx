@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { SignIn } from './SignIn'
 import { Register } from './Register'
-import { ChatBoard } from './main/ChatBoard'
+import ChatBoard from './main/ChatBoard'
 import { AppContext } from '../App'
 
 

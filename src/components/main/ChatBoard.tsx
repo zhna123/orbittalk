@@ -9,9 +9,7 @@ import { Buffer } from 'buffer';
 import { SERVER_URL } from '../../util/constant';
 
 
-
-
-export function ChatBoard() {
+export default function ChatBoard() {
 
   const { user } = useContext(AppContext)
 
