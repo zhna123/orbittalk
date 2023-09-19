@@ -30,7 +30,7 @@ export function RegisterFeedbackModule({ success, registerErr, closeModule, show
           }
 
           {
-            success ? <p>Click <span className="font-semibold text-red-500 cursor-pointer underline" onClick={signin}>here</span> to sign in.</p>
+            success ? <button className="font-semibold text-red-500 cursor-pointer underline" onClick={signin}>Click here to sign in.</button>
               : <button className="bg-red-500 text-red-100 py-1 px-4 rounded-md border-none" onClick={ closeModule }>Close</button>
           }
           

@@ -21,9 +21,13 @@ export function AccountBoard() {
     <div className="flex grow">
       <div className="bg-red-500 rounded-l-md basis-20 sm:basis-52 shrink-0 grow-0">
         <p className="text-grey-100 text-sm sm:text-base p-2 sm:p-4 font-semibold">Account</p>
-        <ul className="text-grey-100 text-xs sm:text-sm">
+        <ul role="tablist" aria-label='account-settings-list' className="text-grey-100 text-xs sm:text-sm">
           <Link to=''>
             <li onClick={() => setSelected('profile')}
+              role="tab" 
+              aria-label="profile"
+              aria-selected={selected === 'profile' ? 'true' : 'false'}
+              tabIndex={selected === 'profile' ? 0 : -1}
               className={`hover:bg-red-300 hover:bg-opacity-50 flex gap-4 items-center p-2 sm:p-4 ${selected === 'profile' ? 'bg-red-400 bg-opacity-50 hover:bg-red-400 font-medium sm:font-semibold': ''}`}>
               <Icon path={mdiAccountDetails} size={1} className="hidden sm:block" />
               <span>My Profile</span>
@@ -31,6 +35,10 @@ export function AccountBoard() {
           </Link>
           <Link to='security'>
             <li onClick={() => setSelected('security')}
+              role="tab" 
+              aria-label="security"
+              aria-selected={selected === 'security' ? 'true' : 'false'}
+              tabIndex={selected === 'security' ? 0 : -1}
               className={`hover:bg-red-300 hover:bg-opacity-50 flex gap-4 items-center p-2 sm:p-4 ${selected === 'security' ? 'bg-red-400 bg-opacity-50 hover:bg-red-400 font-medium sm:font-semibold': ''}`}>
               <Icon path={mdiSecurity} size={1} className="hidden sm:block"/>
               <span>Security</span>
@@ -38,6 +46,10 @@ export function AccountBoard() {
           </Link>
           <Link to='friends'>
             <li onClick={() => setSelected('friends')}
+              role="tab" 
+              aria-label="friends"
+              aria-selected={selected === 'friends' ? 'true' : 'false'}
+              tabIndex={selected === 'friends' ? 0 : -1}
               className={`hover:bg-red-300 hover:bg-opacity-50 flex gap-4 items-center p-2 sm:p-4 ${selected === 'friends' ? 'bg-red-400 bg-opacity-50 hover:bg-red-400 font-medium sm:font-semibold': ''}`}>
               <Icon path={mdiAccountGroupOutline} size={1} className="hidden sm:block"/>
               <span>Friends</span>
@@ -45,6 +57,10 @@ export function AccountBoard() {
           </Link>
           <Link to='notifications'>
             <li onClick={() => setSelected('notifications')}
+              role="tab" 
+              aria-label="notifications"
+              aria-selected={selected === 'notifications' ? 'true' : 'false'}
+              tabIndex={selected === 'notifications' ? 0 : -1}
               className={`hover:bg-red-300 hover:bg-opacity-50 flex gap-4 items-center p-2 sm:p-4 ${selected === 'notifications' ? 'bg-red-400 bg-opacity-50 hover:bg-red-400 ffont-medium sm:ont-semibold': ''}`}>
               <Icon path={mdiBellOutline} size={1} className="hidden sm:block"/>
               <span>Notifications</span>

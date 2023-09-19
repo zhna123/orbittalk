@@ -84,7 +84,7 @@ export function Security() {
  
   return (
     <>
-      <p className="text-lg sm:text-xl text-grey-800 mb-6 sm:mb-10 font-semibold">Change Password</p>
+      <h1 role="heading" className="text-lg sm:text-xl text-grey-800 mb-6 sm:mb-10 font-semibold">Change Password</h1>
       <form onSubmit={ handleSubmit(onSubmit) } className="flex flex-col gap-4 max-w-xs text-xs sm:text-sm">
         <label htmlFor="old_pwd" className="text-grey-800">Old Password <span className="text-red-600 ">*</span></label>
         <input type="password" id="old_pwd" autoComplete="true"

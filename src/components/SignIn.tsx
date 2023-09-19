@@ -59,7 +59,7 @@ export function SignIn({ showSignup }: Props) {
 
   return (
     <div className='max-w-screen-sm sm:max-w-xs self-center w-full'>
-      <p data-testid='sign-in-heading' className='text-xl sm:text-2xl font-semibold text-grey-800'>Hello, Welcome!</p>
+      <p role="heading" aria-level={1} className='text-xl sm:text-2xl font-semibold text-grey-800'>Hello, Welcome!</p>
       <p className='text-grey-500 mt-2'>Enter username and password to sign in.</p>
       <form onSubmit={handleSubmit(onSubmit)} className='py-8 flex flex-col gap-4'>
         { hasError && <p className="text-sm text-red-600 font-medium">Username or password is incorrect</p>}
@@ -91,7 +91,7 @@ export function SignIn({ showSignup }: Props) {
           className='form-input mt-4 border-none rounded-md text-red-100 bg-red-500 cursor-pointer focus:ring-0 active:bg-red-600'/>
       </form>
       <p className='text-center mt-8 text-grey-500 text-sm'>Don't have an account?&nbsp;&nbsp;
-        <span className='text-grey-800 font-semibold text-sm cursor-pointer' onClick={ () => showSignup(true) }>Sign Up</span>
+        <button className='text-grey-800 font-semibold text-sm cursor-pointer' onClick={ () => showSignup(true) }>Sign Up</button>
       </p>
     </div>
   )

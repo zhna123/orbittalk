@@ -41,7 +41,7 @@ export function Friends() {
   return (
     <>
       <div className='flex gap-4 items-center mb-6 sm:mb-10'>
-        <p className='text-lg sm:text-xl text-grey-800 font-semibold'>My Friends</p>
+        <h1 className='text-lg sm:text-xl text-grey-800 font-semibold'>My Friends</h1>
         <div className='relative hover:cursor-pointer' onClick={() => setOpenModule(true) }>
           <Icon path={mdiPlus} className='text-grey-800 absolute top-1/4 left-1/4 h-5 sm:h-6' />
           <Icon path={mdiCircle} className='text-red-200 h-10 sm:h-12' />

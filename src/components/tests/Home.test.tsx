@@ -36,14 +36,14 @@ describe("Home page", () => {
   describe("switch between sign in and sign up", () => {
     it("shows sign in page by default", () => {
       render( <Home />)
-      expect(screen.queryByTestId("sign-in-heading")?.textContent).toMatch("Hello, Welcome!")
+      expect(screen.getByRole("heading").textContent).toMatch("Hello, Welcome!")
     })
     it("shows sign up page when user clicked on sign up link", async () => {
       const user = userEvent.setup();
       render(<Home />)
-      const link = screen.getByText("Sign Up");
+      const link = screen.getByRole("button", {name: "Sign Up"});
       await user.click(link)
-      expect(screen.queryByTestId("sign-up-heading")?.textContent).toMatch("Create your account")
+      expect(screen.getByRole("heading").textContent).toMatch("Create your account")
     })
   })
   describe("sign in", () => {

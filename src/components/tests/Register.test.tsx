@@ -17,6 +17,7 @@ describe("register page", () => {
     expect(screen.getByRole("textbox", {name: "confirm password"})).toBeInTheDocument()
     expect(screen.getByRole("textbox", {name: "email"})).toBeInTheDocument()
     expect(screen.getByRole("button", {name: "submit"})).toBeInTheDocument()
+    expect(screen.getByRole("button", {name: "Sign In"})).toBeInTheDocument()
   })
   it("validates form fields - missing email", async () => {
     const user = userEvent.setup();

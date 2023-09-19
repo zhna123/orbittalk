@@ -3,7 +3,7 @@ import AVATAR_DEFAULT from '../../assets/avatar-default.png'
 export function Notifications() {
   return (
     <>
-      <p className="text-grey-800 text-lg sm:text-xl mb-6 sm:mb-10 font-semibold">Notifications</p>
+      <h1 className="text-grey-800 text-lg sm:text-xl mb-6 sm:mb-10 font-semibold">Notifications</h1>
       <ul>
         <li className='flex gap-2 sm:gap-4 text-sm sm:text-lg'>
           <img src={ AVATAR_DEFAULT } alt="avatar" className='h-6 sm:h-8' />

@@ -77,7 +77,7 @@ export function Register({ showSignup }: Props) {
 
   return (
     <div className='max-w-screen-sm sm:max-w-xs self-center w-full'>
-      <p data-testid='sign-up-heading' className='text-xl sm:text-2xl text-center font-semibold text-grey-800'>Create your account</p>
+      <p role="heading" aria-level={1} className='text-xl sm:text-2xl text-center font-semibold text-grey-800'>Create your account</p>
       <form onSubmit={ handleSubmit(onSubmit) } className='py-8 flex flex-col gap-2' noValidate>
         <label htmlFor="username" className='text-grey-800'> 
           Username <span className="text-red-600 ">*</span>
@@ -140,10 +140,17 @@ export function Register({ showSignup }: Props) {
             :'focus:ring-0 focus:border-grey-600 focus:shadow-inner' }`} />
         <ErrorDiv name="email" />
 
-        <input type="submit" value="Sign Up" aria-label="submit" className='form-input mt-8 border-none rounded-md text-red-100 bg-red-500 cursor-pointer focus:ring-0 active:bg-red-600'/>
+        {
+          !formSubmitted ? 
+          <input type="submit" value="Sign Up" aria-label="submit" className='form-input mt-8 border-none rounded-md text-red-100 bg-red-500 cursor-pointer focus:ring-0 active:bg-red-600'/>
+          :
+          <input type="submit" value="Sign Up" aria-label="submit" className='form-input mt-8 border-none rounded-md text-grey-100 bg-grey-400' disabled/>
+
+        }
+          
       </form>
       <p className='text-center mt-4 text-grey-500 text-sm'>Already had an account?&nbsp;&nbsp;
-        <span className='text-grey-800 font-semibold text-sm cursor-pointer' onClick={ () => showSignup(false) }>Sign In</span>
+        <button className='text-grey-800 font-semibold text-sm cursor-pointer' onClick={ () => showSignup(false) }>Sign In</button>
       </p>
       { formSubmitted && <RegisterFeedbackModule success={ success } registerErr = { registerErr } closeModule = { closeModule } showSignup = { showSignup }/> }
     </div>

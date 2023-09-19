@@ -1,9 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { User } from "../types";
 import { AppContext } from "../App";
-import { redirect } from "react-router-dom";
-import { SERVER_URL } from "../util/constant";
-
+import { findFriends } from "../api/user";
 
 
 export function useFriendList() {
@@ -16,35 +14,6 @@ export function useFriendList() {
   const addFriend = (friend: User) => {
     updateUserFriendList([...friendList, friend])
     setFriendList([...friendList, friend])
-  }
-
-  const findFriends = async (user: User) => {
-
-      const friendIds: string[] = user.friends;
-  
-        const friendsPromises: Promise<User | null>[] = friendIds.map(async id => {
-        const res = await fetch(`${SERVER_URL}/users/${id}`, {
-          method: "GET",
-          mode: "cors",
-          credentials: "include",
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        })
-        if (res.status === 200) {
-          const friend: User = await res.json()
-          return friend;
-        } else if (res.status === 401 || res.status === 403) {
-          redirect('/')
-          return null
-        } else {
-          console.log(`Failed to retrieve friend data for user ID: ${id}`);
-          return null
-        }
-      })
-      const friendsData = await Promise.all(friendsPromises)
-      const filteredData = friendsData.filter(data => data !== null);
-      return filteredData
   }
   
   useEffect(() => {

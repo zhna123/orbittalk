@@ -15,6 +15,7 @@ describe("sign in page", () => {
     expect(screen.getByRole("textbox", {name: "username"})).toBeInTheDocument()
     expect(screen.getByRole("textbox", {name: "password"})).toBeInTheDocument()
     expect(screen.getByRole("button", {name: "submit"})).toBeInTheDocument()
+    expect(screen.getByRole("button", {name: "Sign Up"})).toBeInTheDocument()
   })
   it("validates form fields - missing required value", async () => {
     const user = userEvent.setup();

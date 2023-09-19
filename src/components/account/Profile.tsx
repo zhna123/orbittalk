@@ -74,9 +74,7 @@ const onSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
 
   return (
     <>
-      <div>
-        <p className="text-lg sm:text-xl mb-6 sm:mb-10 text-grey-800 font-semibold">My Profile</p>
-      </div>
+      <h1 className="text-lg sm:text-xl mb-6 sm:mb-10 text-grey-800 font-semibold">My Profile</h1>
       <div className='flex sm:flex-row flex-col gap-8'>
         <div className='flex flex-col gap-6 shrink-0'>
           { 
