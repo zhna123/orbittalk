@@ -170,7 +170,7 @@ export default function ChatBoard() {
     <div className="flex gap-2 sm:gap-8 grow text-xs sm:text-lg">
       <div className="grow-0 shrink-0 basis-24 sm:basis-60 bg-grey-100 rounded-md sm:max-h-[calc(100vh_-_170px)] sm:overflow-auto">
         <div className='px-2 py-4 sm:px-4 sm:py-6'>
-          <button className="form-input text-xs sm:text-sm bg-red-500 focus:ring-0 active:bg-red-600 text-red-100 border-none rounded-md block mx-auto w-full" 
+          <button className="form-input text-xs sm:text-sm bg-red-500 active:bg-red-600 text-red-100 border-none rounded-md block mx-auto w-full" 
           onClick={ () => openNewChatModule(true) }>New Chat</button>
         </div>
         <p className='text-xs sm:text-sm text-grey-500 px-2 sm:px-4 pb-2 sm:pb-4'>All conversations</p>

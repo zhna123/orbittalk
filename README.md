@@ -30,3 +30,11 @@ test: {
 4. add a test setup file `tests/setup.ts`
 5. include the setup file in vite config file
 6. install `npm install @testing-library/user-event --save-dev`
+
+## Accessibility
+
+Attempted to address issues around:
+
+* Semantic HTML & ARIA
+* Keyboard navigation support & Tab focus
+* Accessible colors & Meaningful text

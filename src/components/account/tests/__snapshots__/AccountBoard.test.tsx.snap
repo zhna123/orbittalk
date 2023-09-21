@@ -126,7 +126,7 @@ exports[`account board > renders account board 1`] = `
       <div
         class="h-0.5 bg-red-300 w-4/5 mx-auto mt-8"
       />
-      <div
+      <button
         class="flex gap-4 items-center p-2 mt-2 sm:p-4 text-grey-100 cursor-pointer"
       >
         <svg
@@ -145,7 +145,7 @@ exports[`account board > renders account board 1`] = `
         >
           Sign Out
         </p>
-      </div>
+      </button>
     </div>
     <div
       class="bg-grey-100 rounded-r-md p-4 grow sm:py-12 sm:px-20"

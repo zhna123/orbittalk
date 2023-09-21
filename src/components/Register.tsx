@@ -142,7 +142,7 @@ export function Register({ showSignup }: Props) {
 
         {
           !formSubmitted ? 
-          <input type="submit" value="Sign Up" aria-label="submit" className='form-input mt-8 border-none rounded-md text-red-100 bg-red-500 cursor-pointer focus:ring-0 active:bg-red-600'/>
+          <input type="submit" value="Sign Up" aria-label="submit" className='form-input mt-8 border-none rounded-md text-red-100 bg-red-500 cursor-pointer focus:ring-red-600 focus:ring-2 active:bg-red-600'/>
           :
           <input type="submit" value="Sign Up" aria-label="submit" className='form-input mt-8 border-none rounded-md text-grey-100 bg-grey-400' disabled/>
 

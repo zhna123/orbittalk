@@ -68,10 +68,10 @@ export function AccountBoard() {
           </Link>
         </ul>
         <div className="h-0.5 bg-red-300 w-4/5 mx-auto mt-8"></div>
-        <div className="flex gap-4 items-center p-2 mt-2 sm:p-4 text-grey-100 cursor-pointer">
+        <button className="flex gap-4 items-center p-2 mt-2 sm:p-4 text-grey-100 cursor-pointer" onClick={handleSignOut}>
           <Icon path={mdiLogout} size={1} className="hidden sm:block"/>
-          <p className="text-xs sm:text-sm" onClick={handleSignOut}>Sign Out</p>
-        </div>
+          <p className="text-xs sm:text-sm">Sign Out</p>
+        </button>
       </div>
       <div className="bg-grey-100 rounded-r-md p-4 grow sm:py-12 sm:px-20">
         <Outlet />

@@ -23,22 +23,21 @@ export function Profile() {
         setPreview(undefined)
         return
     }
-
     const objectUrl = URL.createObjectURL(selectedFile)
     setPreview(objectUrl)
 
     // free memory when ever this component is unmounted
     return () => URL.revokeObjectURL(objectUrl)
-}, [selectedFile])
+  }, [selectedFile])
 
-const onSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
+  const onSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
 
-  if (!e.target.files || e.target.files.length === 0) {
-      setSelectedFile(undefined)
-      return
+    if (!e.target.files || e.target.files.length === 0) {
+        setSelectedFile(undefined)
+        return
+    }
+    setSelectedFile(e.target.files[0])
   }
-  setSelectedFile(e.target.files[0])
-}
 
   const onUpload = async () => {
     const formData = new FormData()
@@ -81,20 +80,26 @@ const onSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
             displayAvatar()
           }
           <div className='flex flex-col gap-4'>
-            <label htmlFor='avatar' className='sm:self-center underline text-grey-800'>
+            {/* commented out because we can't use keydown on the label element / need to find a better way to style this */}
+            {/* <label htmlFor='avatar' role="button" aria-label="Choose an image" 
+                    className='sm:self-center underline text-grey-800'
+                    tabIndex={0}>
               Click to select an image
               <input type="file" id='avatar' name='avatar'
                 accept='.png, .jpeg, .jpg, .gif'
                 onChange={ onSelectFile }
                 className='hidden'/>
-            </label>
+            </label> */}
+            <input aria-label='choose avatar' type="file" id='avatar' name='avatar'
+                accept='.png, .jpeg, .jpg, .gif'
+                onChange={ onSelectFile } />
             {
               selectedFile ?
-                <button className='bg-red-500 text-red-100 p-2 rounded-md font-medium text-xs sm:text-sm w-1/2 sm:self-center' onClick={onUpload}>
+                <button aria-label='upload' className='bg-red-500 text-red-100 p-2 rounded-md font-medium text-xs sm:text-sm w-1/2' onClick={onUpload}>
                 Upload
                 </button>
                 :
-                <button className='bg-grey-500 text-grey-100 p-2 rounded-md font-medium text-xs sm:text-sm w-1/2 sm:self-center disabled'>
+                <button aria-label='upload-disabled' className='bg-grey-500 text-grey-100 p-2 rounded-md font-medium text-xs sm:text-sm w-1/2 disabled'>
                 Upload
                 </button>
             }
@@ -110,11 +115,11 @@ const onSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
           <p className='text-lg sm:text-xl my-6'>{user!.username}</p>
           
           <div className='flex gap-4 items-center mb-4 text-sm sm:text-lg'>
-            <p>{user!.screen_name}</p>
-            <div className='relative hover:cursor-pointer'>
+            <p id='screen name'>{user!.screen_name}</p>
+            <button aria-labelledby='screen name' className='relative hover:cursor-pointer'>
               <Icon path={mdiPencil} size={.7} className='text-grey-800 absolute top-1/4 left-1/4' />
               <Icon path={mdiCircle} size={1.4} className='text-red-200' />
-            </div>
+            </button>
           </div>
 
           <p className='break-words'>{user!.email}</p>

@@ -10,13 +10,16 @@ export function Header() {
   const { signIn, user } = useContext(AppContext)
   const navigate = useNavigate();
 
-  const goHome = () => {
-    navigate("/");
+  const goHome = (e) => {
+    if (e.type === 'click' || e.key === ' ' || e.key === 'Enter') {
+      navigate("/");
+    }
   }
 
   return (
     <header className="h-10 sm:h-16 flex justify-between items-start">
-      <img src={ LOGO } alt="logo" className='h-6 sm:h-10 cursor-pointer' onClick={ goHome }/>
+      <img src={ LOGO } alt="logo" className='h-6 sm:h-10 cursor-pointer' tabIndex={0} 
+            onClick={ e => goHome(e) } onKeyDown={goHome}/>
       { signIn && <AccountHeader user={user} /> }
     </header>
   )

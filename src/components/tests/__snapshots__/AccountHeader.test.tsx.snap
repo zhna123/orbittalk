@@ -8,6 +8,7 @@ exports[`acount section in header > renders account section 1`] = `
   >
     <div
       class="relative"
+      tabindex="0"
     >
       <svg
         aria-labelledby="icon_labelledby_1"

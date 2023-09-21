@@ -25,36 +25,39 @@ export const ConversationListItem = ({friendName, isOnline, friendAvatar, isRead
 
   const [isConvRead, setIsConvRead] = useState<boolean>(isRead)
 
-  const handleClick = () => {
-    if (!isConvRead) {
-      // mark messages in this conversation as read
-      const updateReadStatus = async () => {
-        const res = await fetch(`${SERVER_URL}/conversations/messages`, {
-          method: "PUT",
-          mode: "cors",
-          credentials: "include",
-          body: JSON.stringify(conversation),
-          headers: {
-            'Content-Type': 'application/json',
+  const handleClick = (e) => {
+    if (e.type === 'click' || e.key === ' ' || e.key === 'Enter') {
+      if (!isConvRead) {
+        // mark messages in this conversation as read
+        const updateReadStatus = async () => {
+          const res = await fetch(`${SERVER_URL}/conversations/messages`, {
+            method: "PUT",
+            mode: "cors",
+            credentials: "include",
+            body: JSON.stringify(conversation),
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          })
+          if (res.status === 200) {
+            console.log("update message status succeed.")
+          } else {
+            console.log("failed update message status.")
           }
-        })
-        if (res.status === 200) {
-          console.log("update message status succeed.")
-        } else {
-          console.log("failed update message status.")
         }
+        updateReadStatus()
       }
-      updateReadStatus()
+      setIsConvRead(true)
+      showConversation(friendName, isOnline, friendAvatar, conversation)
     }
-    setIsConvRead(true)
-    showConversation(friendName, isOnline, friendAvatar, conversation)
   }
 
   return (
     <div
+      tabIndex={0}
       className={`flex gap-2 sm:gap-4 items-center text-grey-800 hover:bg-grey-200 ${selected === friendName ? 'bg-grey-300 hover:bg-grey-300' : ''} 
         cursor-pointer px-2 py-1 sm:px-4 sm:py-2`}
-      onClick={ handleClick }>
+      onClick={ e => handleClick(e) } onKeyDown={ handleClick }>
 
       <div className='relative grow-0 shrink-0'>
         {
@@ -67,7 +70,7 @@ export const ConversationListItem = ({friendName, isOnline, friendAvatar, isRead
       </div>
       <div className="text-xs sm:text-sm">{ friendName }</div>
       <div className='relative ml-auto'>
-        { !isConvRead ? <Icon path={mdiCircle} size={.5} className='text-red-500' /> : '' }
+        { !isConvRead ? <Icon path={mdiCircle} className='text-red-500 h-2 sm:h-3'/> : '' }
       </div>
     </div>
   )

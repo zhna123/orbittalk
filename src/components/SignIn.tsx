@@ -88,7 +88,7 @@ export function SignIn({ showSignup }: Props) {
         <ErrorDiv name="password" />
 
         <input type="submit" value="Sign In" aria-label="submit"
-          className='form-input mt-4 border-none rounded-md text-red-100 bg-red-500 cursor-pointer focus:ring-0 active:bg-red-600'/>
+          className='form-input mt-4 border-none rounded-md text-red-100 bg-red-500 cursor-pointer focus:ring-red-600 focus:ring-2 active:bg-red-600'/>
       </form>
       <p className='text-center mt-8 text-grey-500 text-sm'>Don't have an account?&nbsp;&nbsp;
         <button className='text-grey-800 font-semibold text-sm cursor-pointer' onClick={ () => showSignup(true) }>Sign Up</button>

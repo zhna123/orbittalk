@@ -14,7 +14,7 @@ interface Props {
 export default function AccountHeader({user}: Props) {
   return (
     <div data-testid="account" className='flex items-center gap-2 sm:gap-4'>
-      <div className='relative'>
+      <div className='relative' tabIndex={0}>
         <Icon path={mdiBellOutline}
           title="Notification Bell"
           className='text-grey-500 w-[20px] sm:w-[25px]'
