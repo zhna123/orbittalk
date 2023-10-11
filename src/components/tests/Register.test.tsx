@@ -7,6 +7,9 @@ import * as user from "../../api/user";
 const spyRegisterUser = vi.spyOn(user, "registerUser").mockImplementation(async() => [true, {}])
 
 describe("register page", () => {
+  afterEach(() => {
+    spyRegisterUser.mockClear()
+  })
   afterAll(() => {
     spyRegisterUser.mockRestore()
   })

@@ -2,10 +2,11 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { ErrorMessage } from "@hookform/error-message"
 import { useState } from "react";
 import { SERVER_URL } from "../../util/constant";
+import { changePassword } from "../../api/user";
 
 
 
-type Inputs = {
+export type Inputs = {
   oldPassword: string,
   password: string,
   passwordConfirmation: string
@@ -55,31 +56,11 @@ export function Security() {
   }
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    try {
-      const res = await fetch(`${SERVER_URL}/users/password`, {
-        method: "PUT",
-        mode: "cors",
-        credentials: "include",
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      if (res.status === 200) {
-        console.log('password changed!')
-        setSuccess(true)
-        setFormErrors([])
-        reset()
-      } else {
-        console.log('failed change pwd')
-        const msg = await res.json()
-        setSuccess(false)
-        setFormErrors(msg)
-        reset()
-      }
-    } catch(e) {
-      console.log('error when changing password:' + e)
-    }
+    const result = await changePassword(data);
+
+    setSuccess(result[0])
+    setFormErrors(result[1])
+    reset()
   }
  
   return (
@@ -87,7 +68,7 @@ export function Security() {
       <h1 role="heading" className="text-lg sm:text-xl text-grey-800 mb-6 sm:mb-10 font-semibold">Change Password</h1>
       <form onSubmit={ handleSubmit(onSubmit) } className="flex flex-col gap-4 max-w-xs text-xs sm:text-sm">
         <label htmlFor="old_pwd" className="text-grey-800">Old Password <span className="text-red-600 ">*</span></label>
-        <input type="password" id="old_pwd" autoComplete="true"
+        <input type="password" id="old_pwd" autoComplete="true" aria-label="old password" role="textbox"
           aria-invalid={errors.password ? "true" : "false"}
           {...register("oldPassword", {
             required: "This is required",
@@ -97,7 +78,7 @@ export function Security() {
         <ErrorDiv name="oldPassword" />
 
         <label htmlFor="password" className="text-grey-800">New Password <span className="text-red-600 ">*</span></label>
-        <input type="password" id="password" autoComplete="true"
+        <input type="password" id="password" autoComplete="true" aria-label="new password" role="textbox"
           aria-invalid={errors.password ? "true" : "false"}
           {...register("password", {
             required: "This is required",
@@ -111,7 +92,7 @@ export function Security() {
         <ErrorDiv name="password" />
 
         <label htmlFor="confirm_pwd" className="text-grey-800">Confirm New Password <span className="text-red-600 ">*</span></label>
-        <input type="password" id="confirm_pwd" autoComplete="true"
+        <input type="password" id="confirm_pwd" autoComplete="true" aria-label="confirm password" role="textbox"
           aria-invalid={errors.passwordConfirmation ? "true" : "false"}
           {...register("passwordConfirmation", {
             required: "This is required",

@@ -7,6 +7,9 @@ import * as auth from "../../api/auth";
 const spyLogInUser = vi.spyOn(auth, "signInUser").mockImplementation(async () => true)
 
 describe("sign in page", () => {
+  afterEach(() => {
+    spyLogInUser.mockClear()
+  })
   afterAll(() => {
     spyLogInUser.mockRestore()
   })

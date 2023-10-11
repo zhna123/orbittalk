@@ -7,11 +7,10 @@ import { mdiPlus } from '@mdi/js';
 import { useFriendList } from "../../hooks/useFriendList";
 import { AppContext } from "../../App";
 import { SERVER_URL } from "../../util/constant";
+import { findUserByName } from "../../api/user";
 
 
-
-
-type Inputs = {
+export type Inputs = {
   username: string
 }
 
@@ -74,26 +73,13 @@ export function AddFriendModule({ openModule, handleAddFriend }: Props) {
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
     setFriendFound(undefined)
     setNotFound(false)
-    try {
-      const res = await fetch(`${SERVER_URL}/users/username/${data.username}`, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      if (res.status === 200) {
-        const resultUser = await res.json();
-        setFriendFound(resultUser)
-      } else {
-        console.log(`user ${data.username} doesn't exist.`)
-        setNotFound(true)
-      }
-      reset()
-    } catch (e) {
-      console.log(`error finding friend with username: ${data.username}`)
+    const resultUser = await findUserByName(data)
+    if (resultUser) {
+      setFriendFound(resultUser)
+    } else {
+      setNotFound(true)
     }
+    reset()
   }
   
   return (
@@ -101,7 +87,7 @@ export function AddFriendModule({ openModule, handleAddFriend }: Props) {
       <div ref={moduleRef} className="p-4 bg-white border-none rounded-md shadow-lg max-w-xs w-full min-h-min">
         <p className="pb-2 text-grey-700 text-sm">Enter username to find a friend</p>
         <form onSubmit={handleSubmit(onSubmit)} className="flex gap-4 mb-2">
-          <input type="text" id="username"
+          <input type="text" id="username" aria-label="username"
             aria-invalid={errors.username ? "true" : "false"}
             {...register("username", {
               required: "This is required"
@@ -118,7 +104,7 @@ export function AddFriendModule({ openModule, handleAddFriend }: Props) {
           <div className="py-2 pl-2 mt-4 rounded-md text-grey-800 hover:bg-grey-200 relative">
             {friendFound.screen_name}
             { !friendList.find(f => f!._id === friendFound._id) && user!._id !== friendFound._id 
-              && <button onClick={() => handleAddFriend(friendFound)}>
+              && <button aria-label="add" onClick={() => handleAddFriend(friendFound)}>
                   <Icon path={mdiPlus} size={1} className='text-red-500 absolute top-1/4 right-2 cursor-pointer' />
                 </button>
             }
